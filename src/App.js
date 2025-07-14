@@ -15,14 +15,14 @@ function App(){
     
   }
 
-  let answer=expensive(input);
-
+  // let answer=expensive(input);
+  let answer=useMemo(()=>expensive(input),[input])
 
   return(
     <div>
       <button onClick={()=>{setCount(count+1)}}>Increment</button>
       <div>Count : {count}</div>
-      <input onChange={(e)=>{setInput(Number(e.target.value))}} type="number"/>
+      <input value={input} onChange={(e)=>{setInput(Number(e.target.value))}} type="number" />
       <div>{answer}</div>
       
     </div>
