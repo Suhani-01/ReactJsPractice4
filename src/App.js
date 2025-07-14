@@ -1,41 +1,68 @@
 
-import { useRef, useState} from 'react';
+import { useMemo, useRef, useState} from 'react';
 import './App.css';
 
-//stop watch
 function App(){
-  const [time,setTime]=useState(0);
-  let timerRef=useRef(null);
 
-  function startTimer(){
-    timerRef.current=setInterval(()=>{
-      setTime(time=>time+1);
-    },1000);
+  const [count,setCount]=useState(0)
+  const [input,setInput]=useState(0)
+
+  function expensive(value){
+    console.log("I am running")
+    for(let i=0;i<1000000000;i++){}
+    console.log("I stopped")
+    return value*value;
+    
   }
 
-  function stopTimer(){
-    clearInterval(timerRef.current);
-    timerRef.current=null;
-  }
+  let answer=expensive(input);
 
-  function resetTimer(){
-    stopTimer();
-    setTime(0);
-  }
 
   return(
     <div>
-      <h1>StopWatch : {time} seconds</h1>
-      <button onClick={startTimer}>Start</button>
-      <br/>
-      <br/>
-      <button onClick={stopTimer}>Stop</button>
-      <br/>
-      <br/>
-      <button onClick={resetTimer}>Reset</button>
+      <button onClick={()=>{setCount(count+1)}}>Increment</button>
+      <div>Count : {count}</div>
+      <input onChange={(e)=>{setInput(Number(e.target.value))}} type="number"/>
+      <div>{answer}</div>
+      
     </div>
-  );
+  )
 }
+
+//stop watch
+// function App(){
+//   const [time,setTime]=useState(0);
+//   let timerRef=useRef(null);
+
+//   function startTimer(){
+//     timerRef.current=setInterval(()=>{
+//       setTime(time=>time+1);
+//     },1000);
+//   }
+
+//   function stopTimer(){
+//     clearInterval(timerRef.current);
+//     timerRef.current=null;
+//   }
+
+//   function resetTimer(){
+//     stopTimer();
+//     setTime(0);
+//   }
+
+//   return(
+//     <div>
+//       <h1>StopWatch : {time} seconds</h1>
+//       <button onClick={startTimer}>Start</button>
+//       <br/>
+//       <br/>
+//       <button onClick={stopTimer}>Stop</button>
+//       <br/>
+//       <br/>
+//       <button onClick={resetTimer}>Reset</button>
+//     </div>
+//   );
+// }
 
 // function App() {
 //   let box=useRef(null);
