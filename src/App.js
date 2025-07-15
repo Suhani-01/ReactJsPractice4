@@ -1,33 +1,52 @@
 
-import { useMemo, useRef, useState} from 'react';
+import { useCallback, useMemo, useRef, useState} from 'react';
 import './App.css';
+import ChildComponent from './component/ChildComponent';
 
 function App(){
-
-  const [count,setCount]=useState(0)
-  const [input,setInput]=useState(0)
-
-  function expensive(value){
-    console.log("I am running")
-    for(let i=0;i<1000000000;i++){}
-    console.log("I stopped")
-    return value*value;
-    
-  }
-
-  // let answer=expensive(input);
-  let answer=useMemo(()=>expensive(input),[input])
+  const [count,setCount]=useState(0);
+  const handleClick=useCallback(()=>{
+    setCount(count=>count+1);
+  },[count]);
 
   return(
     <div>
-      <button onClick={()=>{setCount(count+1)}}>Increment</button>
       <div>Count : {count}</div>
-      <input value={input} onChange={(e)=>{setInput(Number(e.target.value))}} type="number" />
-      <div>{answer}</div>
-      
+      <button onClick={handleClick}>Increment</button>
+      <br/>
+      <ChildComponent buttonName="Click Me" functionName={handleClick}/>
     </div>
+
+
   )
 }
+
+// function App(){
+
+//   const [count,setCount]=useState(0)
+//   const [input,setInput]=useState(0)
+
+//   function expensive(value){
+//     console.log("I am running")
+//     for(let i=0;i<1000000000;i++){}
+//     console.log("I stopped")
+//     return value*value;
+    
+//   }
+
+//   // let answer=expensive(input);
+//   let answer=useMemo(()=>expensive(input),[input])
+
+//   return(
+//     <div>
+//       <button onClick={()=>{setCount(count+1)}}>Increment</button>
+//       <div>Count : {count}</div>
+//       <input value={input} onChange={(e)=>{setInput(Number(e.target.value))}} type="number" />
+//       <div>{answer}</div>
+      
+//     </div>
+//   )
+// }
 
 //stop watch
 // function App(){
